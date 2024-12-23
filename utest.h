@@ -389,6 +389,9 @@ struct utest_state_s {
 /* extern to the global state utest needs to execute */
 UTEST_EXTERN struct utest_state_s utest_state;
 
+#ifdef __cplusplus
+#define UTEST_WEAK inline
+#else
 #if defined(_MSC_VER)
 #define UTEST_WEAK __forceinline
 #elif defined(__MINGW32__) || defined(__MINGW64__)
@@ -397,6 +400,7 @@ UTEST_EXTERN struct utest_state_s utest_state;
 #define UTEST_WEAK UTEST_ATTRIBUTE(weak)
 #else
 #error Non clang, non gcc, non MSVC, non tcc compiler found!
+#endif
 #endif
 
 #if defined(_MSC_VER)
